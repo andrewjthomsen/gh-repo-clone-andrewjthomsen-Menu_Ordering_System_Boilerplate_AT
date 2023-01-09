@@ -1,16 +1,14 @@
-
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Layout from '../core/Layout';
 import axios from 'axios';
-// import { isAuth } from './helpers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 const Signin = () => {
     const [values, setValues] = useState({
-        email: 'kaloraatjs@gmail.com',
-        password: 'rrrrrr',
+        email: 'kaloraatjs@gmail.com', // placeholder value
+        password: 'rrrrrr', // placeholder value
         buttonText: 'Submit'
     });
 
@@ -30,14 +28,13 @@ const Signin = () => {
             data: { email, password }
         })
             .then(response => {
-                console.log('SIGNUP SUCCESS', response);
-
-                // save the response (user, token)
+                console.log('SIGNIN SUCCESS', response);
+                // save the response (user, token) localstorage/cookie
                 setValues({ ...values, name: '', email: '', password: '', buttonText: 'Submitted' });
-                toast.success(`Welcome  back,  ${response.data.user.name}.`);
+                toast.success(`Hey ${response.data.user.name}, Welcome back!`);
             })
             .catch(error => {
-                console.log('SIGNUP ERROR', error.response.data);
+                console.log('SIGNIN ERROR', error.response.data);
                 setValues({ ...values, buttonText: 'Submit' });
                 toast.error(error.response.data.error);
             });
@@ -46,12 +43,12 @@ const Signin = () => {
     const signinForm = () => (
         <form>
             <div className="form-group">
-                <label className="text-muted">Email</label>
+                <lable className="text-muted">Email</lable>
                 <input onChange={handleChange('email')} value={email} type="email" className="form-control" />
             </div>
 
             <div className="form-group">
-                <label className="text-muted">Password</label>
+                <lable className="text-muted">Password</lable>
                 <input onChange={handleChange('password')} value={password} type="password" className="form-control" />
             </div>
 
@@ -61,7 +58,7 @@ const Signin = () => {
                 </button>
             </div>
         </form>
-    )
+    );
 
     return (
         <Layout>
@@ -71,7 +68,7 @@ const Signin = () => {
                 {signinForm()}
             </div>
         </Layout>
-    )
-}
+    );
+};
 
-export default Signup;
+export default Signin;
