@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link } from 'react-router-dom'
 const Layout = ({ children }) => {
     const nav = () => (
         <ul className="nav nav-tabs bg-primary">
@@ -10,7 +9,7 @@ const Layout = ({ children }) => {
                 </Link>
             </li>
             <li className="nav-item">
-                <Link to="/signin" className="text-light nav-link">
+                <Link to="/signup" className="text-light nav-link">
                     Signin
                 </Link>
             </li>

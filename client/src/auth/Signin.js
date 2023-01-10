@@ -7,8 +7,8 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 const Signin = () => {
     const [values, setValues] = useState({
-        email: 'kaloraatjs@gmail.com', // placeholder value
-        password: 'rrrrrr', // placeholder value
+        email: '', // placeholder value
+        password: '', // placeholder value
         buttonText: 'Submit'
     });
 
