@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom'
 
 
-const Layout = ({ children, match, history }) => {
+const Layout = ({ children, match }) => {
     // apply CSS styling to active link
     // if active link will be black, otherwise, white
     const isActive = path => {
