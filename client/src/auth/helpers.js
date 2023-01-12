@@ -43,7 +43,7 @@ export const authenticate = (response, next) => {
     setLocalStorage('user', response.data.user);
     next();
 }
-// access user info from local storage
+// access user info from local storage -- saved user information
 export const isAuth = () => {
     if (window !== 'undefined') {
         const cookieChecked = getCookie('token')

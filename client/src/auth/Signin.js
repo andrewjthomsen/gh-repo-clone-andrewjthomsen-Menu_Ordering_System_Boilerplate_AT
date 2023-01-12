@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Layout from '../core/Layout';
 import axios from 'axios';
-import { authenticate } from './helpers';
+import { authenticate, isAuth } from './helpers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -62,11 +62,13 @@ const Signin = () => {
             </div>
         </form>
     );
-
+    //    {JSON.stringify(isAuth)} is being used for testing only. isAuth will return the user if working line 68
     return (
         <Layout>
+            {/* {JSON.stringify(isAuth())} */}
             <div className="col-md-6 offset-md-3">
                 <ToastContainer />
+                {isAuth() ? <Redirect to="/" /> : null}
                 <h1 className="p-5 text-center">Signin</h1>
                 {signinForm()}
             </div>
