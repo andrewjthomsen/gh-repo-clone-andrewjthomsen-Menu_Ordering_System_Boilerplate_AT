@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+/*import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom'
 
 
@@ -41,4 +41,4 @@ const Layout = ({ children, match }) => {
     );
 };
 
-export default withRouter(Layout);
+export default withRouter(Layout);*/

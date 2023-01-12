@@ -1,48 +1,72 @@
 
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import Layout from '../core/Layout';
 import axios from 'axios';
 // import { isAuth } from './helpers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
+export default function Signup(){
 
-const Signup = () => {
     const [values, setValues] = useState({
-        name: '',
+        fName: '',
+        lName: '',
         email: '',
         password: '',
         buttonText: 'Submit'
     });
 
-    const { name, email, password, buttonText } = values;
+    const {fName, lName, email, password, buttonText} = values;
 
     const handleChange = name => event => {
         // console.log(event.target.value);
-        setValues({ ...values, [name]: event.target.value });
+        setValues({...values, [name]: event.target.value});
     };
 
     const clickSubmit = event => {
+        console.log("Signup button was clicked.")
         event.preventDefault();
-        setValues({ ...values, buttonText: 'Submitting' });
+        setValues({...values, buttonText: 'Submitting'});
         axios({
             method: 'POST',
             url: `${process.env.REACT_APP_API}/signup`,
-            data: { name, email, password }
+            data: {fName, lName, email, password}
         })
             .then(response => {
                 console.log('SIGNUP SUCCESS', response);
-                setValues({ ...values, name: '', email: '', password: '', buttonText: 'Submitted' });
+                setValues({...values, fName: '', lName: '', email: '', password: '', buttonText: 'Submitted'});
                 toast.success(response.data.message);
             })
             .catch(error => {
                 console.log('SIGNUP ERROR', error.response.data);
-                setValues({ ...values, buttonText: 'Submit' });
+                setValues({...values, buttonText: 'Submit'});
                 toast.error(error.response.data.error);
             });
     };
 
-    const signupForm = () => (
+    return(
+        <Grid container justifyContent={"center"} alignItems={"center"} sx={{height: '100vh'}}>
+            <Grid item xs={1}>
+                <Button href={'/home'}>Place holder to test nav to home page</Button>
+            </Grid>
+            <Grid container spacing={0} xs={10} justifyContent={"center"} alignItems={"center"} sx={{height: '90vh', backgroundImage: 'url(/background.jpg)'}}>
+                <Box sx={{bgcolor: 'white', borderRadius: '16px', boxShadow: 10, border: 1, display: 'flex', flexDirection: 'column', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
+                    <TakeoutDiningIcon sx={{height: 100, width: 100, mt: 2}}/>
+                    <TextField onChange={handleChange('fName')} sx={{m: 2, width: 300}} id="outlined-basic" label="First Name" variant="outlined"/>
+                    <TextField onChange={handleChange('lName')} sx={{mb: 2, width: 300}} id="outlined-basic" label="Last Name" variant="outlined"/>
+                    <TextField onChange={handleChange('email')} sx={{mb: 2, width: 300}} id="outlined-basic" label="Email" variant="outlined" helperText="This will be your username."/>
+                    <TextField onChange={handleChange('password')} sx={{mb: 2, width: 300}} id="outlined-basic" label="Password" variant="outlined" helperText="Must be 8 characters, contain letters, and contain numbers."/>
+                    <Button onClick={clickSubmit} sx={{mb: 2}} variant={"contained"} color={"success"}>Signup</Button>
+                </Box>
+            </Grid>
+            <Grid item xs={1}></Grid>
+        </Grid>
+    );
+}
+    /*const signupForm = () => (
         <form>
             <div className="form-group">
                 <label className="text-muted">Name</label>
@@ -78,4 +102,4 @@ const Signup = () => {
     )
 }
 
-export default Signup;
+export default Signup;*/
