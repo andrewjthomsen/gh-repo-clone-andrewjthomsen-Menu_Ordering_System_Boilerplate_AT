@@ -10,6 +10,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
+import Typography from "@mui/material/Typography";
+import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
+import {Chip} from "@mui/material";
 
 export default function Login(){
     const [values, setValues] = useState({
@@ -48,11 +51,12 @@ export default function Login(){
             });
     };
     return (
-        <Grid container justifyContent={"center"} alignItems={"center"} sx={{height: '100vh'}}>
+        <Grid container justifyContent={"center"} alignItems={"center"} sx={{height: '100vh', backgroundImage: 'url(/bgimage.jpg)', backgroundSize: "cover"}}>
             <Grid item xs={1}></Grid>
-            <Grid container spacing={0} justifyContent={"center"} alignItems={"center"} sx={{height: '90vh', backgroundImage: 'url(/background.jpg)'}}>
+            <Grid container spacing={0} justifyContent={"center"} alignItems={"center"} sx={{height: '90vh'}}>
                 <Box sx={{bgcolor: 'white', borderRadius: '16px', boxShadow: 10, border: 1, display: 'flex', flexDirection: 'column', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
-                    <TakeoutDiningIcon sx={{height: 100, width: 100, mt: 2}}/>
+                    <LocalPizzaIcon sx={{height: 100, width: 100, mt: 2}}/>
+                    <Typography>Login to begin your order</Typography>
                     <TextField onChange={handleChange('email')} value={email} sx={{m: 2, width: 300}} id="outlined-basic" label="Username" variant="outlined"/>
                     <TextField onChange={handleChange('password')} value={password} sx={{m: 2, width: 300}} id="outlined-basic" label="Password" variant="outlined"/>
                     <Button onClick={clickSubmit} sx={{m: 3}} variant={"contained"} color={"success"}>Login</Button>

@@ -19,6 +19,7 @@ import {Routes} from "react-router-dom";
 import {BrowserRouter} from "react-router-dom";
 import Homepage from "./auth/Home";
 import PizzaPage from "./auth/PizzaPage";
+import LandingPage from "./auth/LandingPage";
 
 
 function App() {
@@ -26,7 +27,8 @@ function App() {
         <div className="App">
             <BrowserRouter>
                 <Routes>
-                    <Route exact path={'/'} element={<Login/>}/>
+                    <Route exact path={'/'} element={<LandingPage/>}/>
+                    <Route exact path={'/signin'} element={<Login/>}/>
                     <Route exact path={'/signup'} element={<Signup/>}/>
                     <Route exact path={'/home'} element={<Homepage/>}/>
                     <Route exact path={'/pizza'} element={<PizzaPage/>}/>
