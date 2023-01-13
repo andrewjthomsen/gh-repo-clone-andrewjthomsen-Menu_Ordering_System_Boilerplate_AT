@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom'
+import { isAuth, signout } from '../auth/helpers';
 
-
-const Layout = ({ children, match }) => {
+const Layout = ({ children, match, history }) => {
     // apply CSS styling to active link
     // if active link will be black, otherwise, white
     const isActive = path => {
@@ -20,16 +20,36 @@ const Layout = ({ children, match }) => {
                     Home
                 </Link>
             </li>
-            <li className="nav-item">
-                <Link to="/signin" className=" nav-link" style={isActive("/signin")}>
-                    Signin
-                </Link>
-            </li>
-            <li className="nav-item">
-                <Link to="/signup" className=" nav-link" style={isActive("/signup")}>
-                    Signup
-                </Link>
-            </li>
+            {!isAuth() && (
+                <Fragment>
+                    <li className="nav-item">
+                        <Link to="/signin" className=" nav-link" style={isActive("/signin")}>
+                            Signin
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/signup" className=" nav-link" style={isActive("/signup")}>
+                            Signup
+                        </Link>
+                    </li>
+                </Fragment>
+            )}
+            {isAuth() && (
+                <li className="nav-item">
+                    {/* Name appears at top of screen if user is authenticated*/}
+                    <span className="nav-link" >{isAuth().name}</span>
+                </li>
+            )}
+            {/* If authenticatd, show signup link */}
+            {isAuth() && (
+                <li className="nav-item">
+                    <span className="nav-link" style={{ cursor: 'pointer', color: '#fff' }} onClick={() => {
+                        signout(() => {
+                            history.push('/')
+                        })
+                    }}>Signout</span>
+                </li>
+            )}
         </ul>
     );
 

@@ -57,3 +57,10 @@ export const isAuth = () => {
         }
     }
 };
+
+// Signout functionality
+export const signout = next => {
+    removeCookie('token');
+    removeLocalStorage('user');
+    next();
+};
