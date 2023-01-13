@@ -9,17 +9,19 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
+import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
+import Alert from '@mui/material/Alert';
+import { redirect } from "react-router-dom";
 export default function Signup(){
 
     const [values, setValues] = useState({
-        fName: '',
-        lName: '',
+        name: '',
         email: '',
         password: '',
         buttonText: 'Submit'
     });
 
-    const {fName, lName, email, password, buttonText} = values;
+    const {name, email, password, buttonText} = values;
 
     const handleChange = name => event => {
         // console.log(event.target.value);
@@ -33,11 +35,12 @@ export default function Signup(){
         axios({
             method: 'POST',
             url: `${process.env.REACT_APP_API}/signup`,
-            data: {fName, lName, email, password}
+            data: {name, email, password}
         })
             .then(response => {
                 console.log('SIGNUP SUCCESS', response);
-                setValues({...values, fName: '', lName: '', email: '', password: '', buttonText: 'Submitted'});
+                setValues({...values, name: '', email: '', password: '', buttonText: 'Submitted'});
+                alert("Successfully signed up! Return to the Login page and sign in.");
                 toast.success(response.data.message);
             })
             .catch(error => {
@@ -48,18 +51,17 @@ export default function Signup(){
     };
 
     return(
-        <Grid container justifyContent={"center"} alignItems={"center"} sx={{height: '100vh'}}>
+        <Grid container justifyContent={"center"} alignItems={"center"} sx={{height: '100vh', backgroundImage: 'url(/bgimage.jpg)', backgroundSize: "cover"}}>
             <Grid item xs={1}>
-                <Button href={'/home'}>Place holder to test nav to home page</Button>
             </Grid>
-            <Grid container spacing={0} xs={10} justifyContent={"center"} alignItems={"center"} sx={{height: '90vh', backgroundImage: 'url(/background.jpg)'}}>
+            <Grid container spacing={0} justifyContent={"center"} alignItems={"center"} sx={{height: '90vh'}}>
                 <Box sx={{bgcolor: 'white', borderRadius: '16px', boxShadow: 10, border: 1, display: 'flex', flexDirection: 'column', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
-                    <TakeoutDiningIcon sx={{height: 100, width: 100, mt: 2}}/>
-                    <TextField onChange={handleChange('fName')} sx={{m: 2, width: 300}} id="outlined-basic" label="First Name" variant="outlined"/>
-                    <TextField onChange={handleChange('lName')} sx={{mb: 2, width: 300}} id="outlined-basic" label="Last Name" variant="outlined"/>
-                    <TextField onChange={handleChange('email')} sx={{mb: 2, width: 300}} id="outlined-basic" label="Email" variant="outlined" helperText="This will be your username."/>
-                    <TextField onChange={handleChange('password')} sx={{mb: 2, width: 300}} id="outlined-basic" label="Password" variant="outlined" helperText="Must be 8 characters, contain letters, and contain numbers."/>
+                    <LocalPizzaIcon sx={{height: 100, width: 100, mt: 2}}/>
+                    <TextField onChange={handleChange('name')} sx={{m: 2, width: 300}} value={name} id="outlined-basic" label="Name" variant="outlined"/>
+                    <TextField onChange={handleChange('email')} sx={{mb: 2, width: 300}} value={email} id="outlined-basic" label="Email" variant="outlined" helperText="This will be your username."/>
+                    <TextField onChange={handleChange('password')} sx={{mb: 2, width: 300}} value={password} id="outlined-basic" label="Password" variant="outlined" helperText="Must be 8 characters, contain letters, and contain numbers."/>
                     <Button onClick={clickSubmit} sx={{mb: 2}} variant={"contained"} color={"success"}>Signup</Button>
+                    <Button href={'/signin'} sx={{textTransform: 'capitalize', mb: 2}}>Already have an account?</Button>
                 </Box>
             </Grid>
             <Grid item xs={1}></Grid>
