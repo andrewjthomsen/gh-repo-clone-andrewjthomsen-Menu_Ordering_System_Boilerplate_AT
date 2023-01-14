@@ -112,6 +112,18 @@ import axios from 'axios';
 import { authenticate, isAuth } from './helpers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+<<<<<<< HEAD
+=======
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
+import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
+import Alert from '@mui/material/Alert';
+import { redirect } from "react-router-dom";
+export default function Signup(){
+>>>>>>> d7e94661e72fc67cad77e9d8a5e025c7898c0d06
 
 const Signup = () => {
     const [values, setValues] = useState({
@@ -121,7 +133,11 @@ const Signup = () => {
         buttonText: 'Submit'
     });
 
+<<<<<<< HEAD
     const { name, email, password, buttonText } = values;
+=======
+    const {name, email, password, buttonText} = values;
+>>>>>>> d7e94661e72fc67cad77e9d8a5e025c7898c0d06
 
     const handleChange = name => event => {
         // console.log(event.target.value);
@@ -134,11 +150,20 @@ const Signup = () => {
         axios({
             method: 'POST',
             url: `${process.env.REACT_APP_API}/signup`,
+<<<<<<< HEAD
             data: { name, email, password }
         })
             .then(response => {
                 console.log('SIGNUP SUCCESS', response);
                 setValues({ ...values, name: '', email: '', password: '', buttonText: 'Submitted' });
+=======
+            data: {name, email, password}
+        })
+            .then(response => {
+                console.log('SIGNUP SUCCESS', response);
+                setValues({...values, name: '', email: '', password: '', buttonText: 'Submitted'});
+                alert("Successfully signed up! Return to the Login page and sign in.");
+>>>>>>> d7e94661e72fc67cad77e9d8a5e025c7898c0d06
                 toast.success(response.data.message);
             })
             .catch(error => {
@@ -148,7 +173,29 @@ const Signup = () => {
             });
     };
 
+<<<<<<< HEAD
     const signupForm = () => (
+=======
+    return(
+        <Grid container justifyContent={"center"} alignItems={"center"} sx={{height: '100vh', backgroundImage: 'url(/bgimage.jpg)', backgroundSize: "cover"}}>
+            <Grid item xs={1}>
+            </Grid>
+            <Grid container spacing={0} justifyContent={"center"} alignItems={"center"} sx={{height: '90vh'}}>
+                <Box sx={{bgcolor: 'white', borderRadius: '16px', boxShadow: 10, border: 1, display: 'flex', flexDirection: 'column', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
+                    <LocalPizzaIcon sx={{height: 100, width: 100, mt: 2}}/>
+                    <TextField onChange={handleChange('name')} sx={{m: 2, width: 300}} value={name} id="outlined-basic" label="Name" variant="outlined"/>
+                    <TextField onChange={handleChange('email')} sx={{mb: 2, width: 300}} value={email} id="outlined-basic" label="Email" variant="outlined" helperText="This will be your username."/>
+                    <TextField onChange={handleChange('password')} sx={{mb: 2, width: 300}} value={password} id="outlined-basic" label="Password" variant="outlined" helperText="Must be 8 characters, contain letters, and contain numbers."/>
+                    <Button onClick={clickSubmit} sx={{mb: 2}} variant={"contained"} color={"success"}>Signup</Button>
+                    <Button href={'/signin'} sx={{textTransform: 'capitalize', mb: 2}}>Already have an account?</Button>
+                </Box>
+            </Grid>
+            <Grid item xs={1}></Grid>
+        </Grid>
+    );
+}
+    /*const signupForm = () => (
+>>>>>>> d7e94661e72fc67cad77e9d8a5e025c7898c0d06
         <form>
             <div className="form-group">
                 <label className="text-muted">Name</label>
