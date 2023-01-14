@@ -16,8 +16,8 @@ const Routes = () => {
                 <Route path="/signup" exact component={Signup} />
                 <Route path="/signin" exact component={Signin} />
                 <Route path="/auth/activate/:token" exact component={Activate} />
-                  // private route will be enabled only if user is authenticated.
-                  <privateRoute path="/private" exact component={Private} />
+                <privateRoute path="/private" exact component={Private} />   // private route will be enabled only if user is authenticated.
+                <Route path="/signin" exact component={Signin} />
             </Switch>
         </BrowserRouter>
     );
