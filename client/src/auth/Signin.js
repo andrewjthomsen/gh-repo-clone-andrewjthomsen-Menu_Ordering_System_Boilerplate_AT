@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
+import {useNavigate} from 'react-router-dom';
 
 export default function Login({history}) {
     const [values, setValues] = useState({
@@ -23,6 +24,7 @@ export default function Login({history}) {
         // console.log(event.target.value);
         setValues({...values, [name]: event.target.value});
     };
+    const navigate = useNavigate();
     const clickSubmit = event => {
         console.log("Button was pressed");
         event.preventDefault();
@@ -40,7 +42,11 @@ export default function Login({history}) {
                     // toast.success(`Hey ${response.data.user.name}, Welcome back!`);
                     // user will be redirected after signing either to admin
                     // if role is admin or to private if user is a subscriber
-                    isAuth() && isAuth().role === 'admin' ? history.push('/admin') : history.push('private');
+
+                    /*Swapped the code below for useNavigate() because that is what react-router-dom v6 uses
+                    isAuth() && isAuth().role === 'admin' ? history.push('/admin') : history.push('private');*/
+
+                    isAuth() && isAuth().role === 'admin' ? navigate('/admin') : navigate('/home');
 
                 });
             })
@@ -51,7 +57,7 @@ export default function Login({history}) {
             });
     };
     return (
-        <Grid container justifyContent={"center"} alignItems={"center"} sx={{height: '100vh'}}>
+        <Grid container justifyContent={"center"} alignItems={"center"} sx={{height: '100vh', backgroundImage: 'url(/bgimage.jpg)', backgroundSize: "cover"}}>
             <Grid item xs={1}></Grid>
             <Grid container spacing={0} justifyContent={"center"} alignItems={"center"}
                   sx={{height: '90vh', backgroundImage: 'url(/background.jpg)'}}>
