@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
 import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
 import Alert from '@mui/material/Alert';
-import { redirect } from "react-router-dom";
+import {redirect, useNavigate} from "react-router-dom";
 
 
 export default function Signup(){
@@ -28,7 +28,7 @@ export default function Signup(){
         // console.log(event.target.value);
         setValues({...values, [name]: event.target.value});
     };
-
+    const navigate = useNavigate();
     const clickSubmit = event => {
         console.log("Signup button was clicked.")
         event.preventDefault();
@@ -41,8 +41,9 @@ export default function Signup(){
             .then(response => {
                 console.log('SIGNUP SUCCESS', response);
                 setValues({...values, name: '', email: '', password: '', buttonText: 'Submitted'});
-                alert("Successfully signed up! Return to the Login page and sign in.");
                 toast.success(response.data.message);
+                //Navigates to homepage after successful Sign-up
+                navigate('/home');
             })
             .catch(error => {
                 console.log('SIGNUP ERROR', error.response.data);
