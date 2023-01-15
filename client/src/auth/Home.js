@@ -11,7 +11,6 @@ export default function Homepage(){
             <Grid item xs={1}></Grid>
             <Grid container spacing={0} justifyContent={"center"} alignItems={"center"} sx={{height: '90vh', backgroundImage: 'url(/background.jpg)'}}>
                 Homepage container.
-                <Button href={'/pizza'}>Placeholder to check nav to 'Pizza Page'</Button>
             </Grid>
             <Grid item xs={1}></Grid>
         </Grid>
