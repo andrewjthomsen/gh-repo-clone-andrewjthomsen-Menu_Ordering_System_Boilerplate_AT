@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
+const _= require('lodash');
 
 const {sendEmailWithNodemailer} = require("../helpers/email");
 const {resetPasswordValidator} = require("../validators/auth");
@@ -37,51 +39,6 @@ exports.signup = (req, res) => {
 
     });
 };
-// // sendgrid
-// const sgMail = require('@sendgrid/mail');
-// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-// exports.signup = (req, res) => {
-//     const { name, email, password } = req.body;
-
-//     User.findOne({ email }).exec((err, user) => {
-//         if (user) {
-//             return res.status(400).json({
-//                 error: 'Email is taken'
-//             });
-//         }
-
-//         const token = jwt.sign({ name, email, password }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '10m' });
-
-//         const emailData = {
-//             from: process.env.EMAIL_FROM,
-//             to: email,
-//             subject: `Account activation link`,
-//             html: `
-//                 <h1>Please use the following link to activate your account</h1>
-//                 <p>${process.env.CLIENT_URL}/auth/activate/${token}</p>
-//                 <hr />
-//                 <p>This email may contain sensetive information</p>
-//                 <p>${process.env.CLIENT_URL}</p>
-//             `
-//         };
-
-//         sgMail
-//             .send(emailData)
-//             .then(sent => {
-//                 // console.log('SIGNUP EMAIL SENT', sent)
-//                 return res.json({
-//                     message: `Email has been sent to ${email}. Follow the instruction to activate your account`
-//                 });
-//             })
-//             .catch(err => {
-//                 // console.log('SIGNUP EMAIL SENT ERROR', err)
-//                 return res.json({
-//                     message: err.message
-//                 });
-//             });
-//     });
-// };
 
 exports.accountActivation = (req, res) => {
     const {token} = req.body;
@@ -158,7 +115,7 @@ exports.forgotPassword = (req, res) => {
             });
         }
         // otherwise, generate token
-        const token = jwt.sign({ _id: user._id}, process.env.JWT_RESET_PASSWORD, {expiresIn: "10m"});
+        const token = jwt.sign({_id: user._id}, process.env.JWT_RESET_PASSWORD, {expiresIn: "10m"});
 
         const emailData = {
             from: "athomsen2639@gmail.com", // MAKE SURE THIS EMAIL IS YOUR GMAIL FOR WHICH YOU GENERATED APP PASSWORD
@@ -172,8 +129,19 @@ exports.forgotPassword = (req, res) => {
                 <p>http://localhost:3000</p>
             `,
         };
+        // Added 11/15/23
+        return user.updateOne({resetPasswordLink: token}, (err, success) => {
+            if (err) {
+                console.log('RESET PASSWORD LINK ERROR', err);
+                return res.status(400).json({
+                    error: 'Database connection error on user forgot password request.'
+                });
+            } else {
+                sendEmailWithNodemailer(req, res, emailData);
+            }
+        })
 
-        sendEmailWithNodemailer(req, res, emailData);
+        // sendEmailWithNodemailer(req, res, emailData);
 
     });
 // }
@@ -182,5 +150,42 @@ exports.forgotPassword = (req, res) => {
 
 exports.resetPassword = (req, res) => {
     //
+    const {resetPasswordLink, newPassword} = req.body;
 
-}
+    if (resetPasswordLink) {
+        jwt.verify(resetPasswordLink, process.env.JWT_RESET_PASSWORD, (err, decoded) => {
+            if (err) {
+                return res.status(400).json({
+                    error: 'Link has expired.'
+                });
+            }
+            User.findOne({resetPasswordLink}, (err, user) => {
+                if (err || !user) {
+                    return res.status(400).json({
+                        error: 'Something went wrong. Please try again later.'
+                    });
+                };
+                // Update old password with new password
+                const updatedFields = {
+                    password: newPassword,
+                    resetPasswordLink: ''
+
+                }
+                user = _.extend(user, updatedFields);
+
+                // save user info back to db
+                user.save((err, result) => {
+                    if (err) {
+                        return res.status(400).json({
+                            error: 'Failed to save new user password to the database.'
+                        });
+                    }
+                    res.json({
+                        message: `Password was successfully updated! Please login.`
+                    })
+                })
+            })
+        })
+
+    }
+};
