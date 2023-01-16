@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-const expressJwt = require('express-jwt');
+// const expressJwt = require('express-jwt');
+const { expressjwt: expressJwt } = require('express-jwt');
 const _ = require('lodash');
 
 const {sendEmailWithNodemailer} = require("../helpers/email");
@@ -101,6 +102,30 @@ exports.signin = (req, res) => {
     });
 };
 
+// middleware
+exports.requireSignin = expressJwt({
+    secret: process.env.JWT_SECRET, // makes data available in req.user (req.user._id)
+    algorithms: ['HS256'],
+});
+
+exports.adminMiddleware = (req, res, next) => {
+    User.findById({_id: req.user._id}).exec((err, user) => {
+        if (err || !user) {
+            return res.status(400).json({
+                error: 'User not found'
+            });
+        }
+
+        if (user.role !== 'admin') {
+            return res.status(400).json({
+                error: 'Admin resource. Access denied.'
+            });
+        }
+
+        req.profile = user;
+        next();
+    });
+};
 // forgotPassword, resetPassword
 
 exports.forgotPassword = (req, res) => {
@@ -140,14 +165,15 @@ exports.forgotPassword = (req, res) => {
             } else {
                 sendEmailWithNodemailer(req, res, emailData);
             }
-        })
+            ;
+        });
 
         // sendEmailWithNodemailer(req, res, emailData);
 
     });
 // }
 // })
-}
+};
 
 exports.resetPassword = (req, res) => {
     //
@@ -184,10 +210,11 @@ exports.resetPassword = (req, res) => {
                     }
                     res.json({
                         message: `Password was successfully updated! Please login.`
-                    })
-                })
-            })
-        })
+                    });
+                });
+            });
+        });
 
     }
 };
+

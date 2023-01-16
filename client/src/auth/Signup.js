@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 // import { isAuth } from './helpers';
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -13,7 +13,7 @@ import Alert from '@mui/material/Alert';
 import {redirect, useNavigate} from "react-router-dom";
 
 
-export default function Signup(){
+export default function Signup() {
 
     const [values, setValues] = useState({
         name: '',
@@ -52,16 +52,32 @@ export default function Signup(){
             });
     };
 
-    return(
-        <Grid container justifyContent={"center"} alignItems={"center"} sx={{height: '100vh', backgroundImage: 'url(/bgimage.jpg)', backgroundSize: "cover"}}>
+    return (
+        <Grid container justifyContent={"center"} alignItems={"center"}
+              sx={{height: '100vh', backgroundImage: 'url(/bgimage.jpg)', backgroundSize: "cover"}}>
             <Grid item xs={1}>
             </Grid>
             <Grid container spacing={0} justifyContent={"center"} alignItems={"center"} sx={{height: '90vh'}}>
-                <Box sx={{bgcolor: 'white', borderRadius: '16px', boxShadow: 10, border: 1, display: 'flex', flexDirection: 'column', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
+                <Box sx={{
+                    bgcolor: 'white',
+                    borderRadius: '16px',
+                    boxShadow: 10,
+                    border: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    textAlign: 'center',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
                     <LocalPizzaIcon sx={{height: 100, width: 100, mt: 2}}/>
-                    <TextField onChange={handleChange('name')} sx={{m: 2, width: 300}} value={name} id="outlined-basic" label="Name" variant="outlined"/>
-                    <TextField onChange={handleChange('email')} sx={{mb: 2, width: 300}} value={email} id="outlined-basic" label="Email" variant="outlined" helperText="This will be your username."/>
-                    <TextField onChange={handleChange('password')} sx={{mb: 2, width: 300}} value={password} id="outlined-basic" label="Password" variant="outlined" helperText="Must be 8 characters, contain letters, and contain numbers."/>
+                    <TextField onChange={handleChange('name')} sx={{m: 2, width: 300}} value={name} id="outlined-basic"
+                               label="Name" variant="outlined"/>
+                    <TextField onChange={handleChange('email')} sx={{mb: 2, width: 300}} value={email}
+                               id="outlined-basic" label="Email" variant="outlined"
+                               helperText="This will be your username."/>
+                    <TextField onChange={handleChange('password')} sx={{mb: 2, width: 300}} value={password}
+                               id="outlined-basic" label="Password" variant="outlined"
+                               helperText="Must be 8 characters, contain letters, and contain numbers."/>
                     <Button onClick={clickSubmit} sx={{mb: 2}} variant={"contained"} color={"success"}>Signup</Button>
                     <Button href={'/signin'} sx={{textTransform: 'capitalize', mb: 2}}>Already have an account?</Button>
                 </Box>
@@ -145,7 +161,7 @@ export default function Signup(){
         </Grid>
     );
 }*/
-    /*const signupForm = () => (
+/*const signupForm = () => (
 //         <form>
 //             <div className="form-group">
 //                 <label className="text-muted">Name</label>
@@ -303,8 +319,8 @@ export default function Signup(){
 //                 <ToastContainer />
 //                 <h1 className="p-5 text-center">Signup</h1>
 //                 {signupForm()}
-                    <br/>
-<Link to="/auth/password/forgot"
+//                  <br/>
+//                  <Link to="/auth/password/forgot"
 //                     style="btn btn-sm btn-outline-danger">
 //                     Forgot Password
 //                     </Link>
