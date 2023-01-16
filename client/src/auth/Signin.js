@@ -57,7 +57,8 @@ export default function Login({history}) {
             });
     };
     return (
-        <Grid container justifyContent={"center"} alignItems={"center"} sx={{height: '100vh', backgroundImage: 'url(/bgimage.jpg)', backgroundSize: "cover"}}>
+        <Grid container justifyContent={"center"} alignItems={"center"}
+              sx={{height: '100vh', backgroundImage: 'url(/bgimage.jpg)', backgroundSize: "cover"}}>
             <Grid item xs={1}></Grid>
             <Grid container spacing={0} justifyContent={"center"} alignItems={"center"}
                   sx={{height: '90vh', backgroundImage: 'url(/background.jpg)'}}>
@@ -226,6 +227,11 @@ export default function Login({history}) {
 //                 {isAuth() ? <Navigate to="/" /> : null}
 //                 <h1 className="p-5 text-center">Signin</h1>
 //                 {signinForm()}
+//                     </br>
+//                     <Link to="/auth/password/forgot"
+//                     style="btn btn-sm btn-outline-danger">
+//                     Forgot Password
+//                     </Link>
 //             </div>
 //         </Layout>
 //     );
