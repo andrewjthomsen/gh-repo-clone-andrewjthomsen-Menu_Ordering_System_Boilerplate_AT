@@ -33,18 +33,18 @@ const ResetPassword = ({ match }) => { // grabs token from match.props.token (re
         console.log('Send request');
         axios({
             method: 'PUT',
-            url: `${process.env.REACT_APP_API}/forgot-password`,
-            data: { email }
+            url: `${process.env.REACT_APP_API}/reset-password`,
+            data: { newPassword, resetPasswordLink: token }
         })
             .then(response => {
                 console.log('RESET PASSWORD SUCCESS', response);
                 toast.success(response.data.message);
-                setValues({...values, buttonText: 'Requested'})
+                setValues({...values, buttonText: 'Reset!'})
             })
             .catch(error => {
                 console.log('RESET PASSWORD ERROR', error.response.data);
                 toast.error(error.response.data.error);
-                setValues({ ...values, buttonText: 'Submit' });
+                setValues({ ...values, buttonText: 'Reset Password' });
             });
     };
 
@@ -53,7 +53,12 @@ const ResetPassword = ({ match }) => { // grabs token from match.props.token (re
         <form>
             <div className="form-group">
                 <label className="text-muted">Email</label>
-                <input onChange={handleChange} value={email} type="email" className="form-control" />
+                <input onChange={handleChange} value={newPassword}
+                       type="password"
+                       className="form-control"
+                       placeholder="Type new password"
+                       required
+                />
             </div>
             <div>
                 <button className="btn btn-primary" onClick={clickSubmit}>
@@ -67,7 +72,7 @@ const ResetPassword = ({ match }) => { // grabs token from match.props.token (re
         <Layout>
             <div className="col-md-6 offset-md-3">
                 <ToastContainer />
-                <h1 className="p-5 text-center">Reset Password</h1>
+                <h1 className="p-5 text-center">Hey, {name}, type your new password.</h1>
                 {passwordResetForm()}
                 <br />
                 <Link to="/auth/password/forgot" className="btn btn-sm btn-outline-danger">
