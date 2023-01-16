@@ -8,6 +8,8 @@ import Admin from './core/Admin';
 import Private from './core/Private';
 import AdminRoute from './auth/AdminRoute';
 import privateRoute from './auth/privateRoute';
+import ForgotPassword from './auth/ForgotPassword';
+import ResetPassword from './auth/ForgotPassword';
 
 
 
@@ -21,6 +23,8 @@ const Routes = () => {
                 <Route path="/auth/activate/:token" exact component={Activate} />
                 <privateRoute path="/private" exact component={Private} />   // private route will be enabled only if user is authenticated.
                 <AdminRoute path="/admin" exact component={Admin} />
+                <Route path="/auth/password/forgot" exact component={ForgotPassword} />
+                <Route path="/auth/password/reset/:token" exact component={ResetPassword} />
             </Switch>
         </BrowserRouter>
     );
