@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
-const _= require('lodash');
+const _ = require('lodash');
 
 const {sendEmailWithNodemailer} = require("../helpers/email");
 const {resetPasswordValidator} = require("../validators/auth");
@@ -115,7 +115,8 @@ exports.forgotPassword = (req, res) => {
             });
         }
         // otherwise, generate token
-        const token = jwt.sign({_id: user._id}, process.env.JWT_RESET_PASSWORD, {expiresIn: "10m"});
+        const token = jwt.sign({_id: user._id, name: user.name}, process.env.JWT_RESET_PASSWORD,
+            {expiresIn: "10m"});
 
         const emailData = {
             from: "athomsen2639@gmail.com", // MAKE SURE THIS EMAIL IS YOUR GMAIL FOR WHICH YOU GENERATED APP PASSWORD
@@ -164,7 +165,8 @@ exports.resetPassword = (req, res) => {
                     return res.status(400).json({
                         error: 'Something went wrong. Please try again later.'
                     });
-                };
+                }
+                ;
                 // Update old password with new password
                 const updatedFields = {
                     password: newPassword,
