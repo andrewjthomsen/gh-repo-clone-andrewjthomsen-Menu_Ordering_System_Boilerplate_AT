@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 // const expressJwt = require('express-jwt');
-const { expressjwt: expressJwt } = require('express-jwt');
+const {expressjwt: expressJwt} = require('express-jwt');
 const _ = require('lodash');
 
 const {sendEmailWithNodemailer} = require("../helpers/email");
@@ -107,6 +107,15 @@ exports.requireSignin = expressJwt({
     secret: process.env.JWT_SECRET, // makes data available in req.user (req.user._id)
     algorithms: ['HS256'],
 });
+exports.adminMiddleware = (req, res, next) => {
+    User.findById({_id: req.user._id}).exec((err, user) => {
+        if (err || !user) {
+            return res.status(400).json({
+                error: 'User with that email does not exist. Please try a different email...'
+            });
+        }
+    });
+}
 
 exports.adminMiddleware = (req, res, next) => {
     User.findById({_id: req.user._id}).exec((err, user) => {
@@ -121,7 +130,6 @@ exports.adminMiddleware = (req, res, next) => {
                 error: 'Admin resource. Access denied.'
             });
         }
-
         req.profile = user;
         next();
     });
