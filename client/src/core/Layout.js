@@ -1,4 +1,4 @@
-// /*import React, { Fragment } from 'react';
+// import React, { Fragment } from 'react';
 // import { Link, withRouter } from 'react-router-dom'
 // import { isAuth, signout } from '../auth/helpers';
 // const Layout = ({ children, match, history }) => {
@@ -69,4 +69,4 @@
 // //     );
 // // };
 
-// // export default withRouter(Layout);*/
+// // export default withRouter(Layout);
