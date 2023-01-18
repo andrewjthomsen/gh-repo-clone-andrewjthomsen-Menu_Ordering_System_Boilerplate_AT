@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {Link, Redirect, useNavigate, useParams} from 'react-router-dom';
 import Layout from '../core/Layout';
 import axios from 'axios';
-//import { useJwt } from "react-jwt";
+import { useJwt } from "react-jwt";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import LocalPizzaIcon from "@mui/icons-material/LocalPizza";
@@ -16,7 +16,7 @@ import Grid from "@mui/material/Grid";
 //import jwt from "jsonwebtoken";
 
 //removed {match}
-const Activate = () => {
+const Activate = ({match}) => {
     const [values, setValues] = useState({
         name: '',
         token: '',
@@ -24,18 +24,18 @@ const Activate = () => {
     });
 
     const {id} = useParams();
-    //const options = {complete: true};
-    //const token = jwt.decode(id,'');
+    // const options = {complete: true};
+    const token = useJwt.decode(id,'');
 
 
-   /* useEffect(() => {
+    useEffect(() => {
         let token = match.params.token;
-        // let { name } = useJwt.decode(token);
+         let { name } = useJwt.decode(token);
         // console.log(token);
         if (token) {
             setValues({ ...values, name, token });
         }
-    }, []);*/
+    }, []);
 
     //const { name, token, show } = values;
 
@@ -72,9 +72,9 @@ const Activate = () => {
         </Box>
         </Grid>
     )
- /*   const activationLink = () => (
+   const activationLink = () => (
         <div className="text-center">
-            <h1 className="p-5">Hey {name}, Ready to activate your account?</h1>
+            <h1 className="p-5">Hey, Ready to activate your account?</h1>
             <button className="btn btn-outline-primary" onClick={clickSubmit}>
                 Activate Account
             </button>
@@ -88,7 +88,7 @@ const Activate = () => {
                 {activationLink()}
             </div>
         </Layout>
-    );*/
+    );
 };
 
 export default Activate;
