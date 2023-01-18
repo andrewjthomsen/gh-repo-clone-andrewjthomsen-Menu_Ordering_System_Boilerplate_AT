@@ -43,7 +43,7 @@ export default function Signup(){
                 setValues({...values, name: '', email: '', password: '', buttonText: 'Submitted'});
                 toast.success(response.data.message);
                 //Navigates to homepage after successful Sign-up
-                navigate('/home');
+                navigate('/check-email');
             })
             .catch(error => {
                 console.log('SIGNUP ERROR', error.response.data);
@@ -303,8 +303,8 @@ export default function Signup(){
 //                 <ToastContainer />
 //                 <h1 className="p-5 text-center">Signup</h1>
 //                 {signupForm()}
-                    <br/>
-<Link to="/auth/password/forgot"
+//                    <br/>
+// <Link to="/auth/password/forgot"
 //                     style="btn btn-sm btn-outline-danger">
 //                     Forgot Password
 //                     </Link>

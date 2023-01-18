@@ -6,6 +6,10 @@ import {BrowserRouter} from "react-router-dom";
 import Homepage from "./auth/Home";
 import PizzaPage from "./auth/PizzaPage";
 import LandingPage from "./auth/LandingPage";
+import Activate from "./auth/Activate";
+import PrivateRoute from "./auth/privateRoute";
+import Private from "./core/Private";
+import CheckEmail from "./auth/CheckEmail";
 
 
 function App() {
@@ -18,6 +22,9 @@ function App() {
                     <Route exact path={'/signup'} element={<Signup/>}/>
                     <Route exact path={'/home'} element={<Homepage/>}/>
                     <Route exact path={'/pizza'} element={<PizzaPage/>}/>
+                    <Route exact path={'auth/activate/:id'} element={<Activate/>}/>
+                    <Route exact path={'check-email'} element={<CheckEmail/>}/>
+                    <Route exact path={'/private'} element={<PrivateRoute><Private/></PrivateRoute>}/>
                 </Routes>
             </BrowserRouter>
         </div>

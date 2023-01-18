@@ -46,7 +46,7 @@ export default function Login({history}) {
                     /*Swapped the code below for useNavigate() because that is what react-router-dom v6 uses
                     isAuth() && isAuth().role === 'admin' ? history.push('/admin') : history.push('private');*/
 
-                    isAuth() && isAuth().role === 'admin' ? navigate('/admin') : navigate('/home');
+                    isAuth() && isAuth().role === 'admin' ? navigate('/admin') : navigate('/private');
 
                 });
             })

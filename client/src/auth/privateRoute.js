@@ -1,7 +1,20 @@
 import React from 'react';
-import {Route, Redirect} from 'react-router-dom';
+import {Route, useNavigate} from 'react-router-dom';
 import {isAuth} from './helpers';
 
+export default function PrivateRoute({ component: Component, ...rest }){
+
+    const navigate = useNavigate();
+
+    return(
+        <Route {...rest} render={
+            props => isAuth() ? <Component {...props} /> : navigate('/signin')
+            }
+        >
+        </Route>
+    )
+}
+/*
 const privateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={
         props => isAuth() ? <Component {...props} /> : <Redirect to={{
@@ -13,4 +26,4 @@ const privateRoute = ({component: Component, ...rest}) => (
     </Route>
 )
 
-export default privateRoute;
+export default privateRoute;*/
