@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
-export default function Private(){
+export default function PrivatePage(){
     return(
     <Box sx={{bgcolor: 'white', borderRadius: '16px', boxShadow: 10, border: 1, display: 'flex', flexDirection: 'column', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
         <Typography>Private page placeholder!</Typography>
@@ -13,10 +13,10 @@ export default function Private(){
     )
 };
 /*
-const Private = () => (
+const PrivatePage = () => (
     <Layout>
-        <h1>Private Page</h1>
+        <h1>PrivatePage Page</h1>
     </Layout>
 )
 
-export default Private;*/
+export default PrivatePage;*/

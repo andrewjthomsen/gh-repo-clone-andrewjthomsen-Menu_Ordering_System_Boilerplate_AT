@@ -8,7 +8,7 @@ import PizzaPage from "./auth/PizzaPage";
 import LandingPage from "./auth/LandingPage";
 import Activate from "./auth/Activate";
 import PrivateRoute from "./auth/privateRoute";
-import Private from "./core/Private";
+import PrivatePage from "./core/PrivatePage";
 import CheckEmail from "./auth/CheckEmail";
 
 
@@ -24,7 +24,7 @@ function App() {
                     <Route exact path={'/pizza'} element={<PizzaPage/>}/>
                     <Route exact path={'auth/activate/:id'} element={<Activate/>}/>
                     <Route exact path={'check-email'} element={<CheckEmail/>}/>
-                    <Route exact path={'/private'} element={<PrivateRoute><Private/></PrivateRoute>}/>
+                    <Route exact path={'/private'} element={<PrivateRoute><PrivatePage/></PrivateRoute>}/>
                 </Routes>
             </BrowserRouter>
         </div>
