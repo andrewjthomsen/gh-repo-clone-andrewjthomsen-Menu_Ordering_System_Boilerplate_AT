@@ -10,6 +10,7 @@ import Activate from "./auth/Activate";
 import PrivateRoute from "./auth/privateRoute";
 import PrivatePage from "./core/PrivatePage";
 import CheckEmail from "./auth/CheckEmail";
+import ForgotPassword from "./auth/ForgotPassword";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
                     <Route exact path={'/pizza'} element={<PizzaPage/>}/>
                     <Route exact path={'auth/activate/:id'} element={<Activate/>}/>
                     <Route exact path={'check-email'} element={<CheckEmail/>}/>
+                    <Route exact path={'forgot-password'} element={<ForgotPassword/>}/>
                     <Route exact path={'/private'} element={<PrivateRoute><PrivatePage/></PrivateRoute>}/>
                 </Routes>
             </BrowserRouter>
