@@ -4,6 +4,12 @@ import Layout from '../core/Layout';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LocalPizzaIcon from "@mui/icons-material/LocalPizza";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 const ForgotPassword = ({ history }) => {
     const [values, setValues] = useState({
@@ -39,8 +45,19 @@ const ForgotPassword = ({ history }) => {
             });
     };
 
+    return(
+        <Grid container justifyContent={"center"} alignItems={"center"}
+              sx={{height: '100vh', backgroundImage: 'url(/bgimage.jpg)', backgroundSize: "cover"}}>
+            <Box sx={{p: 2, bgcolor: 'white', borderRadius: '16px', boxShadow: 10, border: 1, display: 'flex', flexDirection: 'column', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
+                <LocalPizzaIcon sx={{height: 100, width: 100, mt: 2}}/>
+                <TextField onChange={handleChange('email')} value={email} sx={{m: 2, width: 300}}
+                           id="outlined-basic" label="Email" variant="outlined"/>
+                <Button onClick={clickSubmit} sx={{my: 2}} variant={"contained"} color={"success"}>Reset My Password!</Button>
+            </Box>
+        </Grid>
+    )
 
-    const passwordForgotForm = () => (
+    /*const passwordForgotForm = () => (
         <form>
             <div className="form-group">
                 <label className="text-muted">Email</label>
@@ -66,7 +83,7 @@ const ForgotPassword = ({ history }) => {
                 </Link>
             </div>
         </Layout>
-    );
+    );*/
 };
 
 export default ForgotPassword;

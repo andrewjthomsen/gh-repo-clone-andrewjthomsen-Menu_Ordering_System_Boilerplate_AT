@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
 import {useNavigate} from 'react-router-dom';
+import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
 
 export default function Login({history}) {
     const [values, setValues] = useState({
@@ -73,13 +74,14 @@ export default function Login({history}) {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <TakeoutDiningIcon sx={{height: 100, width: 100, mt: 2}}/>
+                    <LocalPizzaIcon sx={{height: 100, width: 100, mt: 2}}/>
                     <TextField onChange={handleChange('email')} value={email} sx={{m: 2, width: 300}}
                                id="outlined-basic" label="Username" variant="outlined"/>
                     <TextField onChange={handleChange('password')} value={password} sx={{m: 2, width: 300}}
                                id="outlined-basic" label="Password" variant="outlined"/>
                     <Button onClick={clickSubmit} sx={{m: 3}} variant={"contained"} color={"success"}>Login</Button>
-                    <Button href={'/signup'} sx={{textTransform: 'capitalize', mb: 2}}>Create a free account!</Button>
+                    <Button href={'/signup'} sx={{textTransform: 'capitalize', mb: 1}}>Create a free account!</Button>
+                    <Button href={'/forgot-password'} color={"error"} sx={{textTransform: 'capitalize', mb: 2}}>Forgot Password?</Button>
                 </Box>
             </Grid>
             <Grid item xs={1}></Grid>
