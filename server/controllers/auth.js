@@ -41,20 +41,25 @@ exports.signup = (req, res) => {
 };
 
 exports.accountActivation = (req, res) => {
-    const {token} = req.body;
+    //const {token} = req.body;
+    const token = req.body;
+    //if (token){
 
-    if (token) {
+    //Try to change from JWT_ACCOUNT_ACTIVATION to JWT_SECRET
+    if(token){
         jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, function (err, decoded) {
             if (err) {
-                console.log('JWT VERIFY IN ACCOUNT ACTIVATION ERROR', err);
+                console.log('JWT VERIFY IN ACCOUNT ACTIVATION ERROR', err, token);
                 return res.status(401).json({
                     error: 'Expired link. Signup again'
                 });
             }
 
-            const {name, email, password} = jwt.decode(token);
+            req.user = decoded;
 
-            const user = new User({name, email, password});
+            //const {name, email, password} = jwt.decode(token);
+
+            //const user = new User({name, email, password});
 
             user.save((err, user) => {
                 if (err) {
