@@ -1,19 +1,14 @@
 import React, {useState} from 'react';
-import {Link, Redirect} from 'react-router-dom';
-import Layout from '../core/Layout';
 import axios from 'axios';
-import {authenticate, isAuth} from './helpers';
-import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
 import {useNavigate} from 'react-router-dom';
 import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
 
-export default function Login({history}) {
+export default function Login() {
     const [values, setValues] = useState({
         email: '',
         password: '',
